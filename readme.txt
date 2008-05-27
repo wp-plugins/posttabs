@@ -14,6 +14,8 @@ postTabs allows you to easily split your post/page content into Tabs that will b
 
 The colors of the tab can be easily changed to match you theme
 
+Tested on Firefox, IE6, iE7, Opera, Safari and Konqueror.
+
 Please note that although it was tested in all major browsers, it still can have some conflict with a specific theme on a specific browser, and then you will need to adjust you css by hand.
 
 
