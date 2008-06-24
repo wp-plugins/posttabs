@@ -4,7 +4,7 @@ Donate link: http://pirex.com.br/wordpress-plugins
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 2.1
 Tested up to: 2.5
-Stable tag: 1.0
+Stable tag: 2.0
 
 postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
 
@@ -47,8 +47,15 @@ You can also have text before the first tab. Just type it as normal text...
 
 1. An example of the text on the editor window and the live result
 
+2. The admin options page where you can set the colors with a colorpick and have a instant preview
 	
 == Change Log ==
+2.0
+23 jun 2008
+* refactored css stylesheet for better cross-browser cross-themes compatibility 
+* now you can change also the line color
+* improved admin interface with color picker and preview
+
 1.0
 27 may 2008
 Released first version! Full functional in all browsers!
