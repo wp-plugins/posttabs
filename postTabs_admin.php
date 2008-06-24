@@ -70,32 +70,32 @@ function postTabs_preview(){
 		
 		<h3>Line Color</h3>
 		<input type="button" onclick="showColorGrid3('line','none');" value="..." >&nbsp;
-		<input type="text" id="line" name="line" value="<?= $options["line"] ?>" onKeyUp="postTabs_preview()"> 
+		<input type="text" id="line" name="line" value="<?php echo $options["line"] ?>" onKeyUp="postTabs_preview()"> 
 		<BR />
 
 		<h3>Active Tab</h3>
 		Text color:<BR />
 		<input type="button" onclick="showColorGrid3('active_font','none');" value="..." >&nbsp;
-		<input type="text" id="active_font" name="active_font" value="<?= $options["active_font"] ?>" onKeyUp="postTabs_preview()"> <BR />
+		<input type="text" id="active_font" name="active_font" value="<?php echo $options["active_font"] ?>" onKeyUp="postTabs_preview()"> <BR />
 		Background color:<BR />
 		<input type="button" onclick="showColorGrid3('active_bg','none');" value="..." >&nbsp;
-		<input type="text" id="active_bg" name="active_bg" value="<?= $options["active_bg"] ?>" onKeyUp="postTabs_preview()"> <BR /><BR />
+		<input type="text" id="active_bg" name="active_bg" value="<?php echo $options["active_bg"] ?>" onKeyUp="postTabs_preview()"> <BR /><BR />
 
 		<h3>Mouse Over Tab</h3>
 		Text color:<BR />
 		<input type="button" onclick="showColorGrid3('over_font','none');" value="..." >&nbsp;
-		<input type="text" id="over_font" name="over_font" value="<?= $options["over_font"] ?>" onKeyUp="postTabs_preview()"> <BR />
+		<input type="text" id="over_font" name="over_font" value="<?php echo $options["over_font"] ?>" onKeyUp="postTabs_preview()"> <BR />
 		Background color:<BR />
 		<input type="button" onclick="showColorGrid3('over_bg','none');" value="..." >&nbsp;
-		<input type="text" id="over_bg" name="over_bg" value="<?= $options["over_bg"] ?>" onKeyUp="postTabs_preview()"> <BR /><BR />
+		<input type="text" id="over_bg" name="over_bg" value="<?php echo $options["over_bg"] ?>" onKeyUp="postTabs_preview()"> <BR /><BR />
 
 		<h3>Inactive Tab</h3>
 		Text color:<BR />
 		<input type="button" onclick="showColorGrid3('inactive_font','none');" value="..." >&nbsp;
-		<input type="text" id="inactive_font" name="inactive_font" value="<?= $options["inactive_font"] ?>" onKeyUp="postTabs_preview()"> <BR />
+		<input type="text" id="inactive_font" name="inactive_font" value="<?php echo $options["inactive_font"] ?>" onKeyUp="postTabs_preview()"> <BR />
 		Background color:<BR />
 		<input type="button" onclick="showColorGrid3('inactive_bg','none');" value="..." >&nbsp;
-		<input type="text" id="inactive_bg" name="inactive_bg" value="<?= $options["inactive_bg"] ?>" onKeyUp="postTabs_preview()"> <BR /><BR />
+		<input type="text" id="inactive_bg" name="inactive_bg" value="<?php echo $options["inactive_bg"] ?>" onKeyUp="postTabs_preview()"> <BR /><BR />
 
 		<div class="submit">
 		<input type="submit" name="submit_postTab" value="<?php _e('Update Settings', '') ?> &raquo;">
