@@ -141,7 +141,7 @@ function postTabs_preview_align(dir){
 		
 		<BR><BR>
 		<input type="checkbox" name="cookies" value="1" <?php if ("1" == $options["cookies"]) echo "checked"; ?>> <b>Remember last opened tab:</b> 
-		When using 'Hide-Show', makes the browser remember in each tab the user was when the page is reloaded. Requires cookies to be enable.
+		When using 'Hide-Show', makes the browser remember in wich tab the user was when the page is reloaded. Requires cookies to be enable.
 		<BR><BR><BR>
 		The permalinks also work even if you have selected the option Hide-show tabs. The thing is the address is never shown so you will never know it. Mark the option bellow if you want to display each tab's permalink:
 		<BR><BR>
