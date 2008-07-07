@@ -11,11 +11,12 @@
 	#postTabs_admin
 		{
 		margin:0px 0px 1em;
-		padding: 0.2em 1em 0.2em 30px;
+		padding: 0.2em 1em 0.2em 20px;
 		border-bottom: 1px solid <?php echo $postTabs_options["line"]; ?>;
 		font-size: 11px;
 		list-style-type: none;
-		
+		text-align: <?php echo $postTabs_options["align"]; ?>;
+		<?php if ($postTabs_options["align"]=="center") echo "padding-left:0px;"; ?>
 		}
 
 	#postTabs_admin li

@@ -9,6 +9,11 @@ if (isset($_POST['submit_postTab'])) {
 	$options["over_font"] = $_POST['over_font'];
 	$options["over_bg"] = $_POST['over_bg'];
 	$options["line"] = $_POST['line'];
+	$options["align"] = $_POST['align'];
+	$options["list_link"] = $_POST['list_link'];
+	$options["single_link"] = $_POST['single_link'];
+	$options["show_perma"] = $_POST['show_perma'];
+	$options["cookies"] = ($_POST['cookies']=="1") ? "1" : "0";
 	update_option("postTabs", $options);
 				
 	echo "<div class=\"updated\"><p><strong> postTabs Options Updated!</strong></p></div>";
@@ -35,6 +40,14 @@ function postTabs_preview(){
 	
 	document.getElementById("postTabs_admin_preview").style.backgroundColor=document.postTabsOptions.active_bg.value;	
 	document.getElementById("postTabs_admin_active").style.borderBottom="1px solid "+document.postTabsOptions.active_bg.value;		
+}
+
+function postTabs_preview_align(dir){
+
+	document.getElementById("postTabs_admin").style.textAlign=dir;
+	if(dir=="center") document.getElementById("postTabs_admin").style.paddingLeft="0px";
+	else document.getElementById("postTabs_admin").style.paddingLeft="20px";
+
 }
 
 </script>
@@ -96,7 +109,48 @@ function postTabs_preview(){
 		Background color:<BR />
 		<input type="button" onclick="showColorGrid3('inactive_bg','none');" value="..." >&nbsp;
 		<input type="text" id="inactive_bg" name="inactive_bg" value="<?php echo $options["inactive_bg"] ?>" onKeyUp="postTabs_preview()"> <BR /><BR />
-
+		
+		
+		<h3>Tabs alignment</h3>
+		<input onClick="postTabs_preview_align('left');" type="radio" value="left" name="align" id="align" <?php if ("left" == $options["align"]) echo "checked"; ?> > Left <BR>
+		<input onClick="postTabs_preview_align('center');" type="radio" value="center" name="align" id="align" <?php if ("center" == $options["align"]) echo "checked"; ?>> Center <BR>
+		<input onClick="postTabs_preview_align('right');" type="radio" value="right" name="align" id="align" <?php if ("right" == $options["align"]) echo "checked"; ?>> Right <BR>
+		
+		
+		<BR><BR>
+		<h3>Links behavior</h3>
+		
+		<b>permalink:</b> This option set a permalink for each tab. <BR>
+		Pros: You can have a direct link to your post with a specific tab opened. <BR>
+		Cons: The page is reloaded every time you click on a tab.
+		<BR><BR>
+		<b>Hide-Show Tabs:</b> This option display and hide the tab content as you click.<BR>
+		Pros: It does not reload the entire page each time you click on a tab, it quickly displays each tab content<BR>
+		Cons: You dont have a permalink for a tab. 
+		<BR><BR>
+		
+		You can have different link behavior on a page where there is a list of many posts, or on a page where there is a single post:
+		<BR><BR>
+		<b>List:</b><BR>
+		<input type="radio" value="hideshow" name="list_link" id="list_link" <?php if ("hideshow" == $options["list_link"]) echo "checked"; ?> > Hide-Show Tabs <BR>		
+		<input type="radio" value="permalink" name="list_link" id="list_link" <?php if ("permalink" == $options["list_link"]) echo "checked"; ?> > Permalink <BR>		
+		<BR><BR>
+		<b>Single Post or page:</b><BR>
+		<input type="radio" value="hideshow" name="single_link" id="single_link" <?php if ("hideshow" == $options["single_link"]) echo "checked"; ?> > Hide-Show Tabs <BR>		
+		<input type="radio" value="permalink" name="single_link" id="single_link" <?php if ("permalink" == $options["single_link"]) echo "checked"; ?> > Permalink <BR>		
+		
+		<BR><BR>
+		<input type="checkbox" name="cookies" value="1" <?php if ("1" == $options["cookies"]) echo "checked"; ?>> <b>Remember last opened tab:</b> 
+		When using 'Hide-Show', makes the browser remember in each tab the user was when the page is reloaded. Requires cookies to be enable.
+		<BR><BR><BR>
+		The permalinks also work even if you have selected the option Hide-show tabs. The thing is the address is never shown so you will never know it. Mark the option bellow if you want to display each tab's permalink:
+		<BR><BR>
+		<b>Display tab permalink inside tab body:</b><BR>
+		<input type="radio" value="never" name="show_perma" id="show_perma" <?php if ("never" == $options["show_perma"]) echo "checked"; ?> > Never <BR>		
+		<input type="radio" value="registered" name="show_perma" id="show_perma" <?php if ("registered" == $options["show_perma"]) echo "checked"; ?> > Only to registered users <BR>		
+		<input type="radio" value="all" name="show_perma" id="show_perma" <?php if ("all" == $options["show_perma"]) echo "checked"; ?> > Allways <BR>		
+		
+		
 		<div class="submit">
 		<input type="submit" name="submit_postTab" value="<?php _e('Update Settings', '') ?> &raquo;">
 		</div>

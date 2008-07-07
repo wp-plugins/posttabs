@@ -4,7 +4,7 @@ Donate link: http://pirex.com.br/wordpress-plugins
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 2.1
 Tested up to: 2.5
-Stable tag: 2.0
+Stable tag: 2.5
 
 postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
 
@@ -16,14 +16,18 @@ The colors of the tab can be easily changed to match you theme
 
 Tested on Firefox, IE6, iE7, Opera, Safari and Konqueror.
 
-Please note that although it was tested in all major browsers, it still can have some conflict with a specific theme on a specific browser, and then you will need to adjust you css by hand.
-
+The tabs will look good on almost every theme. If you find a theme where the tabs do not work out of the box, please send me a link and Ill check it.
 
 == Installation ==
 
 . Download the package
 . Extract it to the "plugins" folder of your wordpress
 . In the Admin Panes go to "Plugins" and activate it
+
+== Upgrade ==
+
+. Replace the files
+. Go to Setting > PostTabs, choose a value to the new options and save it
 
 == Usage ==
 
@@ -50,6 +54,24 @@ You can also have text before the first tab. Just type it as normal text...
 2. The admin options page where you can set the colors with a colorpick and have a instant preview
 	
 == Change Log ==
+2.5
+06 jul 2008
+
+* Even better cross-theme CSS compatibility
+
+* fixed - now xhtml compliant (tks to ovidiu)
+* fixed - path to javascript works with wordpress installed on subdirectory (tks to ovidiu)
+* fixed appearence on RSS feeds and other situations where the post is presented outside the context (i.e. wp-print plugin). Now it hides the unordered list and displays a title at the top of each tab content (tks to JK)
+
+New Features
+
+* Choose the tabs alignment
+* When page reloads it remembers wich tab was opened
+* You can choose wether tabs links will only show-hide tabs or will point to a individual permalink for each tab
+* add option to display the tab permalink as post metadata information.
+
+
+
 2.0
 23 jun 2008
 * refactored css stylesheet for better cross-browser cross-themes compatibility 
