@@ -4,7 +4,7 @@ Plugin Name: Post Tabs
 Plugin URI: http://pirex.com.br/wordpress-plugins/post-tabs
 Description: postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
 Author: Leo Germani
-Version: 2.5
+Version: 2.7
 Author URI: http://pirex.com.br/wordpress-plugins
 
     PostTabs is released under the GNU General Public License (GPL)
@@ -27,6 +27,7 @@ function postTabs_init(){
 		$options["list_link"] = "hideshow";
 		$options["single_link"] = "hideshow";
 		$options["show_perma"] = "never";
+		$options["TOC"] = "0";
 		$options["cookies"] = "1";
 		update_option("postTabs", $options);
 	}
@@ -75,25 +76,33 @@ function postTabs_filter($a){
 
 		#If there is text before the first tab, print it
 		If ($results_i[0] > 0) $op .= substr($a, 0, $results_i[0]);
-
-		#Print the tabs links
-		$op .= "<ul id='postTabs_ul_$post' class='postTabs' style='display:none'>\n";
 		
-		for ($x=0; $x<sizeof($results_t); $x++){
-			if($results_t[$x]!="END"){
-				$op .= "<li id='postTabs_li_".$x."_$post' ";
-				if ($x==0) $op .= "class='postTabs_curr'";		
-				$link = ($linktype=="permalink") ? get_permalink() . "&postTabs=$x" : "javascript:postTabs_show($x,$post)";		
-				$op .= "><a href='$link'>".$results_t[$x]."</a></li>\n";
-			}		
+		#Print the list of tabs only when we are not in RSS feed
+		if(!is_feed()){
+			
+			#Print the tabs links
+			$op .= "<ul id='postTabs_ul_$post' class='postTabs' style='display:none'>\n";
+			
+			for ($x=0; $x<sizeof($results_t); $x++){
+				if($results_t[$x]!="END"){
+					$op .= "<li id='postTabs_li_".$x."_$post' ";
+					if ($x==0) $op .= "class='postTabs_curr'";		
+					$link = ($linktype=="permalink") ? get_postTabs_permalink($x) : "javascript:postTabs_show($x,$post)";		
+					$op .= "><a  onMouseOver=\"posTabsShowLinks('".$results_t[$x]."'); return true;\"  onMouseOut=\"posTabsShowLinks();\" href='$link'>".$results_t[$x]."</a></li>\n";
+				}		
+			}
+			$op .= "</ul>\n\n";
 		}
-		$op .= "</ul>\n\n";
 
 		#print tabs content
 		for ($x=0; $x<sizeof($results_t); $x++){
 			
 			#if tab title is END, just print the rest of the post
 			if ($results_t[$x]=="END") {
+				
+				## Prints the table of contents
+				if(!is_feed() && $options["TOC"]=="rightAfter") $op.=postTabs_printTOC($results_t,$post,$linktype,$options["TOC_title"]);
+				
 				$op .= substr($a, $results_f[$x]+1);
 				break;	
 			}
@@ -102,7 +111,7 @@ function postTabs_filter($a){
 			if ($x==0) $op .= " postTabs_curr_div";
 			$op .= "' id='postTabs_".$x."_$post'>\n";
 			
-			#This is the hidden title that only shows up on RSS feed or somewhere outside the context
+			#This is the hidden title that only shows up on RSS feed or somewhere outside the context like a print page
 			$op .= "<span class='postTabs_titles'><b>".$results_t[$x]."</b></span>";
 			
 			$ini = $results_f[$x]+1;
@@ -114,13 +123,40 @@ function postTabs_filter($a){
 			
 			#Display permalink?
 			if($options["show_perma"]!="never" && (($options["show_perma"]=="all") || ($options["show_perma"]=="registered" && $user_ID)   ) ){
-				$op .= "<span class='postmetadata'>Permalink to this post: " . get_permalink() . "&postTabs=$x</span>";
+				$op .= "<span class='postmetadata'>Permalink to this post: " . get_postTabs_permalink($x) . "</span>";
+			}
+			
+			#Print the navigation
+			if(!is_feed() && $options["TOC"]=="navigation"){
+				$linkprev = 0;
+				$linknext = 0;
+				if($x>0)
+					#$linkprev = ($linktype=="permalink") ? get_postTabs_permalink($x-1) : "#postTabs_ul_$post' onClick='postTabs_show(".($x-1).",$post)";		
+					$linkprev = "#postTabs_ul_$post' onClick='postTabs_show(".($x-1).",$post)";		
+				if ($x< (sizeof($results_t)-1)){
+					if ($results_t[$x+1]!="END")
+						#$linknext = ($linktype=="permalink") ? get_postTabs_permalink($x+1) : "#postTabs_ul_$post' onClick='postTabs_show(".($x+1).",$post)";
+						$linknext = "#postTabs_ul_$post' onClick='postTabs_show(".($x+1).",$post)";
+				}
+				if($linkprev || $linknext){	
+					$op .= "<div class='postTabsNavigation' style='display:none'>";
+					if ($linkprev)
+						$op .= "<span class='postTabs_nav_prev'><a href='$linkprev'>&lt;&lt; ".$results_t[$x-1]."</a></span>";
+					if ($linknext)
+						$op .= "<span class='postTabs_nav_next'><a href='$linknext'>".$results_t[$x+1]." &gt;&gt;</a></span>";
+					$op .= "</div>";
+				}
 			}
 			$op .= "</div>\n\n";
 		}
 		
+		## Prints the table of contents
+		if(!is_feed() && $options["TOC"]=="END") $op.=postTabs_printTOC($results_t,$post,$linktype,$options["TOC_title"]);
+		
+		
+		
 		#handle permalinks and cookies
-		if ($_GET["postTabs"]){
+		if ($_GET["postTabs"]!=""){
 			$op .= "<script type='text/javascript'>postTabs_show(".$_GET["postTabs"].",$post);</script>";	
 		}else{		
 			if ($options["cookies"]) $op .= "<script type='text/javascript'>if(postTabs_getCookie('postTabs_$post')) postTabs_show(postTabs_getCookie('postTabs_$post'),$post);</script>";
@@ -131,6 +167,32 @@ function postTabs_filter($a){
 	}else{
 		return $a;	
 	}
+
+}
+
+
+function get_postTabs_permalink($tab){
+	$link = get_permalink();
+	$signal = (substr_count($link,"?")) ? "&" : "?";
+	return $link . $signal . "postTabs=$tab" ;
+}
+
+
+function postTabs_printTOC($results_t,$post,$linktype,$title=""){
+	
+	if ($title) $op .= "<br><b>$title</b>";
+	$op .= "<ul class='postTabs_TOC'>\n";
+			
+	for ($x=0; $x<sizeof($results_t); $x++){
+		if($results_t[$x]!="END"){
+			$op .= "<li id='postTabs_li_".$x."_$post' ";
+			//if ($x==0) $op .= "class='postTabs_curr'";		
+			$link = ($linktype=="permalink") ? get_postTabs_permalink($x) : "#postTabs_ul_$post' onClick='postTabs_show($x,$post)";		
+			$op .= "><a  onMouseOver=\"posTabsShowLinks('".$results_t[$x]."'); return true;\"  onMouseOut=\"posTabsShowLinks();\" href='$link'>".$results_t[$x]."</a></li>\n";
+		}		
+	}
+	$op .= "</ul>\n\n";
+	return $op;
 
 }
 

@@ -14,6 +14,8 @@ if (isset($_POST['submit_postTab'])) {
 	$options["single_link"] = $_POST['single_link'];
 	$options["show_perma"] = $_POST['show_perma'];
 	$options["cookies"] = ($_POST['cookies']=="1") ? "1" : "0";
+	$options["TOC"] = $_POST['TOC'];
+	$options["TOC_title"] = $_POST['TOC_title'];
 	update_option("postTabs", $options);
 				
 	echo "<div class=\"updated\"><p><strong> postTabs Options Updated!</strong></p></div>";
@@ -115,6 +117,19 @@ function postTabs_preview_align(dir){
 		<input onClick="postTabs_preview_align('left');" type="radio" value="left" name="align" id="align" <?php if ("left" == $options["align"]) echo "checked"; ?> > Left <BR>
 		<input onClick="postTabs_preview_align('center');" type="radio" value="center" name="align" id="align" <?php if ("center" == $options["align"]) echo "checked"; ?>> Center <BR>
 		<input onClick="postTabs_preview_align('right');" type="radio" value="right" name="align" id="align" <?php if ("right" == $options["align"]) echo "checked"; ?>> Right <BR>
+		
+		
+		<BR><BR>
+		<h3>Display TOC</h3>
+		Displays a Table of Contents with links to all tabs at the end of the post. (Note it will use your theme's default layout for unordered lists.)
+		<BR>
+		<b>TOC Title</b> (opcional): <input type="text" name="TOC_title" id="TOC_title" value="<?php echo $options["TOC_title"] ?>"><br>
+		<input type="radio" value="0" name="TOC" id="TOC" <?php if (0 == $options["TOC"]) echo "checked"; ?> > Never <BR>
+		<input type="radio" value="END" name="TOC" id="TOC" <?php if ("END" == $options["TOC"]) echo "checked"; ?> > At the end of the post, after everything  <BR>
+		<input type="radio" value="rightAfter" name="TOC" id="TOC" <?php if ("rightAfter" == $options["TOC"]) echo "checked"; ?>> Right after the [tab:END] tag, before the resto of the post<BR>
+		<input type="radio" value="navigation" name="TOC" id="TOC" <?php if ("navigation" == $options["TOC"]) echo "checked"; ?>> Inside each tab - navigation style ( &lt;&lt;previous tab ... next tab&gt;&gt; )<BR>
+		
+		
 		
 		
 		<BR><BR>

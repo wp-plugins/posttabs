@@ -25,6 +25,14 @@ function postTabs_show(tab,post){
 }
 
 
+function posTabsShowLinks(tab){
+
+	if (tab) window.status=tab;
+	else window.status="";
+	
+
+}
+
 function postTabs_getCookie(name) {
 			var nameEQ = name + "=";
 			var ca = document.cookie.split(';');

@@ -64,3 +64,16 @@ ul.postTabs li a:hover
 	text-decoration: none;
 	
 	}
+
+.postTabsNavigation{
+	display: block !important;
+	overflow:hidden;
+}
+
+.postTabs_nav_next{
+	float:right;
+}
+
+.postTabs_nav_prev{
+	float:left;
+}
