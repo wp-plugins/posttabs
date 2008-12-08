@@ -1,11 +1,7 @@
 .postTabs_divs{
-	display: none;
 	padding: 4px;	
 }
 
-.postTabs_curr_div{
-	display: block;
-}
 
 .postTabs_titles{
 	display:none;	
