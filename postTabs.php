@@ -238,7 +238,6 @@ function postTabs_admin_addCSS(){
 	?>
 	<style type="text/css">
 	<?php require_once("style_admin.php"); ?>
-	<?php require_once("colorpicker.css"); ?>
 	</style>
 	<?php
 
