@@ -4,7 +4,7 @@ Plugin Name: Post Tabs
 Plugin URI: http://pirex.com.br/wordpress-plugins/post-tabs
 Description: postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
 Author: Leo Germani
-Version: 2.9
+Version: 2.9.1
 Author URI: http://pirex.com.br/wordpress-plugins
 
     PostTabs is released under the GNU General Public License (GPL)
@@ -107,8 +107,8 @@ function postTabs_filter($a){
 					$op .= "<li id='postTabs_li_".$x."_$post' ";
 					if ($x==0) $op .= "class='postTabs_curr'";		
 					#$link = ($linktype=="permalink") ? get_postTabs_permalink($x) : "javascript:postTabs_show($x,$post)";		
-					$link = ($linktype=="permalink") ? get_postTabs_permalink($x) : "#' class='postTabsLinks'";		
-					$op .= "><a  id=\"" . $post . "_$x\" onMouseOver=\"posTabsShowLinks('".$results_t[$x]."'); return true;\"  onMouseOut=\"posTabsShowLinks();\" href='$link'>".$results_t[$x]."</a></li>\n";
+					$link = ($linktype=="permalink") ? "href='" . get_postTabs_permalink($x) ."'" : " class='postTabsLinks'";		
+					$op .= "><a  id=\"" . $post . "_$x\" onMouseOver=\"posTabsShowLinks('".$results_t[$x]."'); return true;\"  onMouseOut=\"posTabsShowLinks();\" $link>".$results_t[$x]."</a></li>\n";
 				}		
 			}
 			$op .= "</ul>\n\n";

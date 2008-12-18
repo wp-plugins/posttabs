@@ -42,6 +42,7 @@ ul.postTabs li a
 	padding: 0.2em 0.4em !important;
 	color: <?php echo $postTabs_options["inactive_font"]; ?> !important;
 	outline:none;	
+	cursor: pointer;
 	
 	}
 	
