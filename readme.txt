@@ -3,7 +3,7 @@ Contributors: LeoGermani
 Donate link: http://pirex.com.br/wordpress-plugins
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 2.1
-Tested up to: 2.7
+Tested up to: 2.9.2
 Stable tag: 2.9.1
 
 postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
