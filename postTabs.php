@@ -249,7 +249,7 @@ function postTabs_admin_addJS() {
 
 function postTabs_admin() {
 	if (function_exists('add_options_page')) {
-		add_options_page('postTabs Options', 'postTabs', 8, basename(__FILE__), 'postTabs_admin_page');
+		add_options_page('postTabs Options', 'postTabs', 'manage_options', basename(__FILE__), 'postTabs_admin_page');
 	}
 }
 
