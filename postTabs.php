@@ -59,6 +59,7 @@ function postTabs_filter($a){
 	
 	$b = "[tab:";
 	$c = 0;
+	$op = '';
 	
 	#Search for tabs inside the post
 	if(is_int(strpos($a, $b, $c))){
@@ -176,7 +177,7 @@ function postTabs_filter($a){
 		
 		
 		#handle permalinks and cookies
-		if ($_GET["postTabs"]!=""){
+		if (isset($_GET["postTabs"]) && $_GET["postTabs"]!=""){
 			$op .= "<script type='text/javascript'>jQuery(document).ready(function() { postTabs_show(".$_GET["postTabs"].",$post); });</script>";	
 		}else{		
 			if ($options["cookies"]) $op .= "<script type='text/javascript'>jQuery(document).ready(function() { if(postTabs_getCookie('postTabs_$post')) postTabs_show(postTabs_getCookie('postTabs_$post'),$post); });</script>";
