@@ -1,10 +1,10 @@
 === postTabs ===
-Contributors: LeoGermani
+Contributors: LeoGermani, rodrigosprimo
 Donate link: http://post-tabs.hacklab.com.br
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 2.1
-Tested up to: 3.4.2
-Stable tag: 2.9.2
+Tested up to: 3.7.1
+Stable tag: 2.9.3
 
 postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
 
