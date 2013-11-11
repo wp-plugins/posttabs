@@ -1,5 +1,5 @@
 === postTabs ===
-Contributors: LeoGermani, rodrigosprimo
+Contributors: leogermani, rodrigosprimo
 Donate link: http://post-tabs.hacklab.com.br
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 2.1
