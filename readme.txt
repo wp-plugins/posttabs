@@ -57,23 +57,28 @@ You can also have text before the first tab. Just type it as normal text...
 
 = 2.9.3 =
 11 Nov 2013
+
 * Remove a few PHP warnings and notices
 
 = 2.9.2 =
 9 Nov 2012
+
 * Updating readme.txt to get back to the public listing in wordpress.org
 
 = 2.9.1 =
 18 dec 2008
+
 * fixed annoying link behavior that would scroll to the top of the page
 
 = 2.9 =
 08 dec 2008
+
 * Now uses jquery on front end
 * Displays everything if javascript is not present
 
 = 2.7 =
 28 jul 2008
+
 * Fixed bugs on permalink support
 * Added Table of Contents and Navigation options
 * Improved RSS feed appearence
@@ -96,14 +101,17 @@ New Features
 
 = 2.0 =
 23 jun 2008
+
 * refactored css stylesheet for better cross-browser cross-themes compatibility 
 * now you can change also the line color
 * improved admin interface with color picker and preview
 
 = 1.0 =
 27 may 2008
-Released first version! Full functional in all browsers!
+
+* Released first version! Full functional in all browsers!
 
 = 0.1 beta =
 26 may 2008
-Released first version, with known issues on styles...
+
+* Released first version, with known issues on styles...
