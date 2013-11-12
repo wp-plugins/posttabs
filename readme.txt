@@ -55,6 +55,10 @@ You can also have text before the first tab. Just type it as normal text...
 	
 == Change Log ==
 
+2.9.3
+11 Nov 2013
+* Remove a few PHP warnings and notices
+
 2.9.2
 9 Nov 2012
 * Updating readme.txt to get back to the public listing in wordpress.org
