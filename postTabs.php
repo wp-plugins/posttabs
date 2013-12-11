@@ -63,6 +63,7 @@ function postTabs_filter($a){
 	
 	#Search for tabs inside the post
 	if(is_int(strpos($a, $b, $c))){
+		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js');
 		
 		$options = get_option("postTabs");
 		global $user_ID;	
@@ -228,12 +229,6 @@ function postTabs_addCSS(){
 	<?php
 }
 
-function postTabs_addJS() {
-       wp_enqueue_script('jquery'); 
-       wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js'); 
-}
-
-
 function postTabs_admin_addCSS(){
 	$postTabs_options=get_option("postTabs");
 	?>
@@ -245,13 +240,12 @@ function postTabs_admin_addCSS(){
 }
 
 function postTabs_admin_addJS() {
-       wp_enqueue_script('postTabsColorpicker', POSTTABS_URLPATH . '301a.js'); 
+	wp_enqueue_script('postTabsColorpicker', POSTTABS_URLPATH . '301a.js'); 
 }
 
 function postTabs_admin() {
-	if (function_exists('add_options_page')) {
-		add_options_page('postTabs Options', 'postTabs', 'manage_options', basename(__FILE__), 'postTabs_admin_page');
-	}
+	$page_hook_suffix = add_options_page('postTabs Options', 'postTabs', 'manage_options', basename(__FILE__), 'postTabs_admin_page');
+	add_action('admin_print_scripts-' . $page_hook_suffix, 'postTabs_admin_addJS');
 }
 
 function postTabs_admin_page() {
@@ -267,8 +261,4 @@ add_filter('the_content', 'postTabs_filter');
 add_action('wp_head','postTabs_addCSS');
 add_action('admin_head','postTabs_admin_addCSS');
 
-add_action('wp_print_scripts','postTabs_addJS');
-add_action('admin_print_scripts','postTabs_admin_addJS');
-
 add_action('admin_menu','postTabs_admin');
-?>
