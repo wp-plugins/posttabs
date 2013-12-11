@@ -3,8 +3,8 @@
 Plugin Name: Post Tabs
 Plugin URI: http://post-tabs.hacklab.com.br
 Description: postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
-Author: Leo Germani
-Version: 2.9.3
+Author: Leo Germani, Rodrigo Primo
+Version: 2.10
 Author URI: http://hacklab.com.br
 
     PostTabs is released under the GNU General Public License (GPL)
