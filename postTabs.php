@@ -96,19 +96,30 @@ function postTabs_filter($a){
 		};
 
 		#If there is text before the first tab, print it
-		If ($results_i[0] > 0) $op .= substr($a, 0, $results_i[0]);
+		if ($results_i[0] > 0) {
+			$op .= substr($a, 0, $results_i[0]);
+		}
 		
+		if (isset($_GET['postTabs']) && !empty($_GET['postTabs'])) {
+			$currentTab = $_GET['postTabs'];
+		} else {
+			$currentTab = 0;
+		}
+
 		#Print the list of tabs only when we are not in RSS feed
 		if(!is_feed()){
 			
 			#Print the tabs links
 			$op .= "<ul id='postTabs_ul_$post' class='postTabs' style='display:none'>\n";
 			
-			for ($x=0; $x<sizeof($results_t); $x++){
+			for ($x = 0; $x < sizeof($results_t); $x++){
 				if($results_t[$x]!="END"){
 					$op .= "<li id='postTabs_li_".$x."_$post' ";
-					if ($x==0) $op .= "class='postTabs_curr'";		
-					#$link = ($linktype=="permalink") ? get_postTabs_permalink($x) : "javascript:postTabs_show($x,$post)";		
+
+					if ($x == $currentTab) {
+						$op .= "class='postTabs_curr'";
+					}		
+							
 					$link = ($linktype=="permalink") ? "href='" . get_postTabs_permalink($x) ."'" : " class='postTabsLinks'";		
 					$op .= "><a  id=\"" . $post . "_$x\" onMouseOver=\"posTabsShowLinks('".$results_t[$x]."'); return true;\"  onMouseOut=\"posTabsShowLinks();\" $link>".$results_t[$x]."</a></li>\n";
 				}		
@@ -130,7 +141,9 @@ function postTabs_filter($a){
 			}
 			
 			$op .= "<div class='postTabs_divs";
-			if ($x==0) $op .= " postTabs_curr_div";
+			if ($x == $currentTab) {
+				$op .= " postTabs_curr_div";
+			}
 			$op .= "' id='postTabs_".$x."_$post'>\n";
 			
 			#This is the hidden title that only shows up on RSS feed or somewhere outside the context like a print page
@@ -173,18 +186,15 @@ function postTabs_filter($a){
 		}
 		
 		## Prints the table of contents
-		if(!is_feed() && $options["TOC"]=="END") $op.=postTabs_printTOC($results_t,$post,$linktype,$options["TOC_title"]);
-		
-		
-		
-		#handle permalinks and cookies
-		if (isset($_GET["postTabs"]) && $_GET["postTabs"]!=""){
-			$op .= "<script type='text/javascript'>jQuery(document).ready(function() { postTabs_show(".$_GET["postTabs"].",$post); });</script>";	
-		}else{		
-			if ($options["cookies"]) $op .= "<script type='text/javascript'>jQuery(document).ready(function() { if(postTabs_getCookie('postTabs_$post')) postTabs_show(postTabs_getCookie('postTabs_$post'),$post); });</script>";
+		if (!is_feed() && $options["TOC"]=="END") {
+			$op.=postTabs_printTOC($results_t,$post,$linktype,$options["TOC_title"]);
 		}
 		
-		#return
+		#handle cookies
+		if ($options["cookies"] && !isset($_GET['postTabs'])) {
+			$op .= "<script type='text/javascript'>jQuery(document).ready(function() { if(postTabs_getCookie('postTabs_$post')) postTabs_show(postTabs_getCookie('postTabs_$post'),$post); });</script>";
+		}
+		
 		return $op;
 	}else{
 		return $a;	
