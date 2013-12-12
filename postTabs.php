@@ -3,8 +3,8 @@
 Plugin Name: Post Tabs
 Plugin URI: http://post-tabs.hacklab.com.br
 Description: postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
-Author: Leo Germani
-Version: 2.9.3
+Author: Leo Germani, Rodrigo Primo
+Version: 2.10.1
 Author URI: http://hacklab.com.br
 
     PostTabs is released under the GNU General Public License (GPL)
@@ -63,6 +63,7 @@ function postTabs_filter($a){
 	
 	#Search for tabs inside the post
 	if(is_int(strpos($a, $b, $c))){
+		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js');
 		
 		$options = get_option("postTabs");
 		global $user_ID;	
@@ -95,19 +96,30 @@ function postTabs_filter($a){
 		};
 
 		#If there is text before the first tab, print it
-		If ($results_i[0] > 0) $op .= substr($a, 0, $results_i[0]);
+		if ($results_i[0] > 0) {
+			$op .= substr($a, 0, $results_i[0]);
+		}
 		
+		if (isset($_GET['postTabs']) && !empty($_GET['postTabs'])) {
+			$currentTab = $_GET['postTabs'];
+		} else {
+			$currentTab = 0;
+		}
+
 		#Print the list of tabs only when we are not in RSS feed
 		if(!is_feed()){
 			
 			#Print the tabs links
 			$op .= "<ul id='postTabs_ul_$post' class='postTabs' style='display:none'>\n";
 			
-			for ($x=0; $x<sizeof($results_t); $x++){
+			for ($x = 0; $x < sizeof($results_t); $x++){
 				if($results_t[$x]!="END"){
 					$op .= "<li id='postTabs_li_".$x."_$post' ";
-					if ($x==0) $op .= "class='postTabs_curr'";		
-					#$link = ($linktype=="permalink") ? get_postTabs_permalink($x) : "javascript:postTabs_show($x,$post)";		
+
+					if ($x == $currentTab) {
+						$op .= "class='postTabs_curr'";
+					}		
+							
 					$link = ($linktype=="permalink") ? "href='" . get_postTabs_permalink($x) ."'" : " class='postTabsLinks'";		
 					$op .= "><a  id=\"" . $post . "_$x\" onMouseOver=\"posTabsShowLinks('".$results_t[$x]."'); return true;\"  onMouseOut=\"posTabsShowLinks();\" $link>".$results_t[$x]."</a></li>\n";
 				}		
@@ -129,7 +141,9 @@ function postTabs_filter($a){
 			}
 			
 			$op .= "<div class='postTabs_divs";
-			if ($x==0) $op .= " postTabs_curr_div";
+			if ($x == $currentTab) {
+				$op .= " postTabs_curr_div";
+			}
 			$op .= "' id='postTabs_".$x."_$post'>\n";
 			
 			#This is the hidden title that only shows up on RSS feed or somewhere outside the context like a print page
@@ -172,18 +186,15 @@ function postTabs_filter($a){
 		}
 		
 		## Prints the table of contents
-		if(!is_feed() && $options["TOC"]=="END") $op.=postTabs_printTOC($results_t,$post,$linktype,$options["TOC_title"]);
-		
-		
-		
-		#handle permalinks and cookies
-		if (isset($_GET["postTabs"]) && $_GET["postTabs"]!=""){
-			$op .= "<script type='text/javascript'>jQuery(document).ready(function() { postTabs_show(".$_GET["postTabs"].",$post); });</script>";	
-		}else{		
-			if ($options["cookies"]) $op .= "<script type='text/javascript'>jQuery(document).ready(function() { if(postTabs_getCookie('postTabs_$post')) postTabs_show(postTabs_getCookie('postTabs_$post'),$post); });</script>";
+		if (!is_feed() && $options["TOC"]=="END") {
+			$op.=postTabs_printTOC($results_t,$post,$linktype,$options["TOC_title"]);
 		}
 		
-		#return
+		#handle cookies
+		if ($options["cookies"] && !isset($_GET['postTabs'])) {
+			$op .= "<script type='text/javascript'>jQuery(document).ready(function() { if(postTabs_getCookie('postTabs_$post')) postTabs_show(postTabs_getCookie('postTabs_$post'),$post); });</script>";
+		}
+		
 		return $op;
 	}else{
 		return $a;	
@@ -228,12 +239,6 @@ function postTabs_addCSS(){
 	<?php
 }
 
-function postTabs_addJS() {
-       wp_enqueue_script('jquery'); 
-       wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js'); 
-}
-
-
 function postTabs_admin_addCSS(){
 	$postTabs_options=get_option("postTabs");
 	?>
@@ -245,13 +250,12 @@ function postTabs_admin_addCSS(){
 }
 
 function postTabs_admin_addJS() {
-       wp_enqueue_script('postTabsColorpicker', POSTTABS_URLPATH . '301a.js'); 
+	wp_enqueue_script('postTabsColorpicker', POSTTABS_URLPATH . '301a.js'); 
 }
 
 function postTabs_admin() {
-	if (function_exists('add_options_page')) {
-		add_options_page('postTabs Options', 'postTabs', 'manage_options', basename(__FILE__), 'postTabs_admin_page');
-	}
+	$page_hook_suffix = add_options_page('postTabs Options', 'postTabs', 'manage_options', basename(__FILE__), 'postTabs_admin_page');
+	add_action('admin_print_scripts-' . $page_hook_suffix, 'postTabs_admin_addJS');
 }
 
 function postTabs_admin_page() {
@@ -267,8 +271,4 @@ add_filter('the_content', 'postTabs_filter');
 add_action('wp_head','postTabs_addCSS');
 add_action('admin_head','postTabs_admin_addCSS');
 
-add_action('wp_print_scripts','postTabs_addJS');
-add_action('admin_print_scripts','postTabs_admin_addJS');
-
 add_action('admin_menu','postTabs_admin');
-?>
