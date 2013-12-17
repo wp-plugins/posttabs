@@ -123,7 +123,7 @@ function postTabs_preview_align(dir){
 		<h3>Display TOC</h3>
 		Displays a Table of Contents with links to all tabs at the end of the post. (Note it will use your theme's default layout for unordered lists.)
 		<BR>
-		<b>TOC Title</b> (opcional): <input type="text" name="TOC_title" id="TOC_title" value="<?php echo $options["TOC_title"] ?>"><br>
+		<b>TOC Title</b> (opcional): <input type="text" name="TOC_title" id="TOC_title" value="<?php echo isset($options["TOC_title"]) ? $options["TOC_title"] : ''; ?>"><br>
 		<input type="radio" value="0" name="TOC" id="TOC" <?php if (0 == $options["TOC"]) echo "checked"; ?> > Never <BR>
 		<input type="radio" value="END" name="TOC" id="TOC" <?php if ("END" == $options["TOC"]) echo "checked"; ?> > At the end of the post, after everything  <BR>
 		<input type="radio" value="rightAfter" name="TOC" id="TOC" <?php if ("rightAfter" == $options["TOC"]) echo "checked"; ?>> Right after the [tab:END] tag, before the resto of the post<BR>
