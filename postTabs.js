@@ -9,6 +9,12 @@ jQuery(document).ready(function() {
             postTabs_show(info[1], info[0]);
         });
     });
+    
+    cookie_name = 'postTabs_' + postTabs.post_ID;
+    
+    if (postTabs.use_cookie && postTabs_getCookie(cookie_name)) {
+        postTabs_show(postTabs_getCookie(cookie_name), postTabs.post_ID);
+    }
 });
 
 function postTabs_show(tab,post){

@@ -63,8 +63,6 @@ function postTabs_filter($a){
 	
 	#Search for tabs inside the post
 	if(is_int(strpos($a, $b, $c))){
-		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js');
-		
 		$options = get_option("postTabs");
 		global $user_ID;	
 		
@@ -81,8 +79,11 @@ function postTabs_filter($a){
 		$results_t = array();
 		$post = get_the_ID();
 
-		 #find the begining, the end and the title fo the tabs
-		 while ($vai)  {	
+		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js');
+		wp_localize_script('postTabs', 'postTabs', array('use_cookie' => ($options["cookies"] && !isset($_GET['postTabs'])), 'post_ID' => $post));
+
+		#find the begining, the end and the title fo the tabs
+		while ($vai)  {	
 			$r = strpos($a, $b, $c);
 			if (is_int($r)){
 				array_push($results_i, $r);
@@ -188,11 +189,6 @@ function postTabs_filter($a){
 		## Prints the table of contents
 		if (!is_feed() && $options["TOC"]=="END") {
 			$op.=postTabs_printTOC($results_t,$post,$linktype,$options["TOC_title"]);
-		}
-		
-		#handle cookies
-		if ($options["cookies"] && !isset($_GET['postTabs'])) {
-			$op .= "<script type='text/javascript'>jQuery(document).ready(function() { if(postTabs_getCookie('postTabs_$post')) postTabs_show(postTabs_getCookie('postTabs_$post'),$post); });</script>";
 		}
 		
 		return $op;
