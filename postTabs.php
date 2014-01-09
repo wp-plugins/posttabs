@@ -79,7 +79,7 @@ function postTabs_filter($a){
 		$results_t = array();
 		$post = get_the_ID();
 
-		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js');
+		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js', array('jquery'));
 		wp_localize_script('postTabs', 'postTabs', array('use_cookie' => ($options["cookies"] && !isset($_GET['postTabs'])), 'post_ID' => $post));
 
 		#find the begining, the end and the title fo the tabs
