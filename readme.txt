@@ -3,7 +3,7 @@ Contributors: leogermani, rodrigosprimo
 Donate link: http://post-tabs.hacklab.com.br
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 3.0 
-Tested up to: 3.8
+Tested up to: 3.9
 Stable tag: 2.10.3
 
 postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
