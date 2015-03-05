@@ -3,8 +3,8 @@ Contributors: leogermani, rodrigosprimo
 Donate link: http://post-tabs.hacklab.com.br
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 3.0 
-Tested up to: 4.0
-Stable tag: 2.10.3
+Tested up to: 4.1.1
+Stable tag: 2.10.4
 
 postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
 
@@ -55,8 +55,11 @@ You can also have text before the first tab. Just type it as normal text...
 	
 == Changelog ==
 
+= 2.10.4 =
+5 Mar 2015
+
 = 2.10.3 =
-8 Dec 2013
+8 Jan 2014
 
 * Explicitly declares that posttabs.js depends on jQuery
 
