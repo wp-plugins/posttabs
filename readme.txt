@@ -4,7 +4,7 @@ Donate link: http://post-tabs.hacklab.com.br
 Tags: post, page, tabs, content, section, subsection, tab
 Requires at least: 3.0 
 Tested up to: 4.1.1
-Stable tag: 2.10.4
+Stable tag: 2.10.5
 
 postTabs allows you to easily split your post/page content into Tabs that will be shown to your visitors
 
@@ -55,8 +55,15 @@ You can also have text before the first tab. Just type it as normal text...
 	
 == Changelog ==
 
+= 2.10.5 =
+15 Apr 2015
+
+* Add posttabs CSS only when posttabs is used
+
 = 2.10.4 =
 5 Mar 2015
+
+* Improve responsive version of the tabs
 
 = 2.10.3 =
 8 Jan 2014
