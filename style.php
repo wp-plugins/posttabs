@@ -12,7 +12,7 @@ ul.postTabs
 	margin:0px 0px 1em !important;
 	padding: 0.2em 1em 0.2em <?php if ($postTabs_options["align"]=="center") echo "0px"; else echo "20px"; ?> !important;
 	border-bottom: 1px solid <?php echo $postTabs_options["line"]; ?> !important;
-	font-size: 11px;
+	font-size: 14px;
 	list-style-type: none !important;
 	line-height:normal;
 	text-align: <?php echo $postTabs_options["align"]; ?>;
@@ -23,7 +23,7 @@ ul.postTabs
 ul.postTabs li
 	{	
 	display: inline !important;
-	font-size: 11px;
+	font-size: 14px;
 	line-height:normal;
 	background: none;
 	padding: 0px;
@@ -73,4 +73,16 @@ ul.postTabs li a:hover
 
 .postTabs_nav_prev{
 	float:left;
+}
+
+@media screen and (max-width: 699px) {
+	ul.postTabs li {
+		display: block !important;
+		width: 100%;
+		margin: -3px;
+	}
+	ul.postTabs li a {
+		display: block;
+		width: 96%;
+	}
 }
