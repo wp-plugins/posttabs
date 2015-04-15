@@ -82,6 +82,8 @@ function postTabs_filter($a){
 		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js', array('jquery'));
 		wp_localize_script('postTabs', 'postTabs', array('use_cookie' => ($options["cookies"] && !isset($_GET['postTabs'])), 'post_ID' => $post));
 
+		postTabs_addCSS();
+
 		#find the begining, the end and the title fo the tabs
 		while ($vai)  {	
 			$r = strpos($a, $b, $c);
@@ -264,7 +266,6 @@ register_activation_hook( __FILE__, 'postTabs_init' );
 
 add_filter('the_content', 'postTabs_filter');
 
-add_action('wp_head','postTabs_addCSS');
 add_action('admin_head','postTabs_admin_addCSS');
 
 add_action('admin_menu','postTabs_admin');
