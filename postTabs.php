@@ -9,8 +9,6 @@ Author URI: http://hacklab.com.br
 
     PostTabs is released under the GNU General Public License (GPL)
     http://www.gnu.org/licenses/gpl.txt
-
-    
 */
 
 //////////////////////////////////////////////////////////
@@ -82,7 +80,7 @@ function postTabs_filter($a){
 		wp_enqueue_script('postTabs', POSTTABS_URLPATH . 'postTabs.js', array('jquery'));
 		wp_localize_script('postTabs', 'postTabs', array('use_cookie' => ($options["cookies"] && !isset($_GET['postTabs'])), 'post_ID' => $post));
 
-		postTabs_addCSS();
+		do_action('posttabs-include-custom-css');
 
 		#find the begining, the end and the title fo the tabs
 		while ($vai)  {	
@@ -232,7 +230,7 @@ function postTabs_addCSS(){
 	$postTabs_options=get_option("postTabs");
 	?>
 	<style type="text/css">
-	    <?php require_once("style.php"); ?>
+		<?php require_once("style.php"); ?>
 	</style>
 	<?php
 }
@@ -269,3 +267,5 @@ add_filter('the_content', 'postTabs_filter');
 add_action('admin_head','postTabs_admin_addCSS');
 
 add_action('admin_menu','postTabs_admin');
+
+add_action('posttabs-include-custom-css', 'postTabs_addCSS');
